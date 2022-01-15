@@ -4,7 +4,7 @@
   - online editor [codehtml.online](https://codehtml.online)
   - online editor https://html-online.com/editor/
   - BlueGriffon
-  - Visual Studio Code
+  - [Visual Studio Code](https://code.visualstudio.com/)
   - Pycharm
   - Notepad++ 
 
