@@ -1,10 +1,15 @@
 # beginners_html
 
 - HTML editors
+  - [Visual Studio Code](https://code.visualstudio.com/)
+    - Install  extensions 
+    - ![image](https://user-images.githubusercontent.com/52529498/149624551-ef52281c-99dc-49e1-b327-21570712ffd7.png)
+      - click on extensions, the 4 yellow squares on the left and then search for the following and install:
+      - HTML5 extension pack v1.0. 
+      - Live Server v5.6.1
   - online editor [codehtml.online](https://codehtml.online)
   - online editor https://html-online.com/editor/
   - BlueGriffon
-  - [Visual Studio Code](https://code.visualstudio.com/)
   - Pycharm
   - Notepad++ 
 
