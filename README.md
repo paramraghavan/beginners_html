@@ -1,4 +1,4 @@
-# beginenrs_html
+# beginners_html
 
 - HTML editors
   - online editor codehtml.online
