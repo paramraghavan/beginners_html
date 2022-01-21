@@ -24,6 +24,7 @@
   - https://www.w3schools.com/css/default.asp
   - https://www.w3schools.com/js/default.asp
   - https://github.com/dwyl/learn-html5
+  - https://www.w3schools.com/bootstrap5/
     
   ## Step 2
   - https://github.com/nahian91/project-wth-html5-css3-beginners
