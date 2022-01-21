@@ -32,8 +32,7 @@
   
   ## Step 3
   - https://github.com/StartBootstrap/startbootstrap-creative
-  - https://github.com/learning-zone/website-templates
-  - https://github.com/learning-zone/website-templates.git
+  - https://github.com/learning-zone/website-templates or git clone https://github.com/learning-zone/website-templates.git
 
 
 
