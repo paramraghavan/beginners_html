@@ -16,21 +16,25 @@
   - Notepad++ 
 
 
-  # Html learn step by step
+  # Html learn step by step 
+      
+  ## Step 1
   - https://www.w3schools.com/html/html_intro.asp
   - https://www.w3schools.com/htmL/html_basic.asp
   - https://www.w3schools.com/css/default.asp
   - https://www.w3schools.com/js/default.asp
+  - https://github.com/dwyl/learn-html5
     
-
+  ## Step 2
+  - https://github.com/nahian91/project-wth-html5-css3-beginners
+  
+  
+  ## Step 3
+  - https://github.com/StartBootstrap/startbootstrap-creative
+  - https://github.com/learning-zone/website-templates
+  - https://github.com/learning-zone/website-templates.git
 
 
 
 - Recommended course
   - [html5 mastery - udemy course](https://www.udemy.com/course/html5-mastery-mobile-apps-websites/) 
-
-
-- References:
-  - https://github.com/dwyl/learn-html5
-  - https://github.com/nahian91/project-wth-html5-css3-beginners
-
