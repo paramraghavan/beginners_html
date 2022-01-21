@@ -16,7 +16,7 @@
   - Notepad++ 
 
 
-  # Html learn step by step 
+  # Learn step by step 
       
   ## Step 1
   - https://www.w3schools.com/html/html_intro.asp
