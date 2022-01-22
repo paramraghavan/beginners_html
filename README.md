@@ -35,6 +35,12 @@
   - https://github.com/learning-zone/website-templates or git clone https://github.com/learning-zone/website-templates.git
 
 
+- Online Photo editora
+  - canva.com
+  - https://www.photopea.com/
+  - https://www.img2go.com/photo-editor
+  - 
+
 
 - Recommended course
   - [html5 mastery - udemy course](https://www.udemy.com/course/html5-mastery-mobile-apps-websites/) 
