@@ -44,3 +44,8 @@
 
 - Recommended course
   - [html5 mastery - udemy course](https://www.udemy.com/course/html5-mastery-mobile-apps-websites/) 
+
+- Install git bash for windows
+  - http://git-scm.com/download/win
+  - Got to the section Standalone Installer
+  - Choose appropriate 32-bit or 64-bit Git for Windows Setup.
