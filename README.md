@@ -49,3 +49,5 @@
   - http://git-scm.com/download/win
   - Got to the section Standalone Installer
   - Choose appropriate 32-bit or 64-bit Git for Windows Setup.
+
+ - cookbook git repo, https://github.com/paramraghavan/cookbook.git
