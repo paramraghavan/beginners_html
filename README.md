@@ -12,7 +12,7 @@
   - online editor [codehtml.online](https://codehtml.online)
   - online editor https://html-online.com/editor/
   - ~~BlueGriffon~~
-  - Aptan, https://github.com/aptana/studio3/releases
+  - Amaya, https://www.w3.org/Amaya/User/BinDist.html
   - Pycharm
   - Notepad++
   - http://lighttable.com/
