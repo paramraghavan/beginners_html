@@ -12,7 +12,7 @@
   - online editor [codehtml.online](https://codehtml.online)
   - online editor https://html-online.com/editor/
   - ~~BlueGriffon~~
-  - Amaya, https://www.w3.org/Amaya/User/BinDist.html
+  - Bluefish, https://bluefish.openoffice.nl/download.html
   - Pycharm
   - Notepad++
   - http://lighttable.com/
