@@ -11,7 +11,8 @@
 
   - online editor [codehtml.online](https://codehtml.online)
   - online editor https://html-online.com/editor/
-  - BlueGriffon
+  - ~~BlueGriffon~~
+  - seamonkey, https://www.seamonkey-project.org/releases/
   - Pycharm
   - Notepad++
   - http://lighttable.com/
