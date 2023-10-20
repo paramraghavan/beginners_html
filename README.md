@@ -12,7 +12,7 @@
   - online editor [codehtml.online](https://codehtml.online)
   - online editor https://html-online.com/editor/
   - ~~BlueGriffon~~
-  - seamonkey, https://www.seamonkey-project.org/releases/
+  - Aptan, https://github.com/aptana/studio3/releases
   - Pycharm
   - Notepad++
   - http://lighttable.com/
