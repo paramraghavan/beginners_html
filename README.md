@@ -10,7 +10,8 @@
       - Live Server v5.6.1
 
   - online editor [codehtml.online](https://codehtml.online)
-  - online editor https://html-online.com/editor/l
+  - ~~online editor https://html-online.com/editor/l~~
+  - Amaya, BlueGriffon, KompoZer
   - Pycharm
   - Notepad++
   - http://lighttable.com/
