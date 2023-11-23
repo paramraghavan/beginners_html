@@ -15,6 +15,7 @@
   - Pycharm
   - Notepad++
   - http://lighttable.com/
+  - [Online Html formatter](https://smalldev.tools/html-formatter-online)
 
 
   # Learn step by step 
