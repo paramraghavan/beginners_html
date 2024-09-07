@@ -53,3 +53,5 @@
   - Choose appropriate 32-bit or 64-bit Git for Windows Setup.
 
  - cookbook git repo, https://github.com/paramraghavan/cookbook.git
+ - [Using  indexed db with html](indexed_and_html.md)
+ - Example using indexeddb to store addresses with my html page to be used for cached address search, [address book html page](addressbook%2Findex.html)

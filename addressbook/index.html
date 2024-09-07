@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Address Search</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="searchName">Search by Name</label>
+                    <input type="text" class="form-control" id="searchName" placeholder="Enter name">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <h3>Search Results:</h3>
+            <ul id="resultsList" class="list-group">
+                <!-- Results will be injected here -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize Dexie.js
+    const db = new Dexie("AddressDatabase");
+
+    // Define the database schema
+    db.version(1).stores({
+        addresses: '++id, name, address, phone'
+    });
+
+    // Open the database
+    db.open().catch(function (err) {
+        console.error("Open failed: " + err.stack);
+    });
+        // Function to load JSON data from a file
+    async function loadJsonData() {
+        try {
+            const response = await fetch('addresses.json'); // Adjust the path as needed
+            const jsonData = await response.json();
+
+            // Clear existing data (optional)
+            await db.addresses.clear();
+            console.log(jsonData)
+            // Bulk add the JSON data to the database
+            await db.addresses.bulkAdd(jsonData);
+
+            console.log("Address data loaded from JSON file and added to the database.");
+        } catch (error) {
+            console.error("Failed to load data: ", error);
+        }
+    }
+    // Call the function to load json data
+    //loadJsonData();
+    // Function to load CSV data from a file
+    async function loadCsvData() {
+        try {
+            const response = await fetch('addresses.csv'); // Adjust the path as needed
+            const csvText = await response.text();
+
+            // Parse the CSV data into an array of objects
+            const parsedData = Papa.parse(csvText, {
+                header: true, // Treat the first row as the header
+                dynamicTyping: true // Automatically convert data types
+            }).data;
+
+            console.log(parsedData);
+            // Clear existing data (optional)
+            await db.addresses.clear();
+
+            // Bulk add the parsed CSV data to the database
+            await db.addresses.bulkAdd(parsedData);
+
+            console.log("Address data loaded from CSV file and added to the database.");
+        } catch (error) {
+            console.error("Failed to load data: ", error);
+        }
+    }
+
+    // Call the function to load CSV data
+    loadCsvData();
+
+<!--    // ç (this would be generated from your CSV file)-->
+<!--    const addressData = [-->
+<!--        { name: "John Doe", address: "123 Market St, San Francisco, CA", phone: "123-456-7890" },-->
+<!--        { name: "Joseph Shapiro", address: "456 Broadway, New York, NY", phone: "234-567-8901" },-->
+<!--        { name: "Joan Smith", address: "789 Elm St, Boston, MA", phone: "345-678-9012" },-->
+<!--        // Add more records as needed-->
+<!--    ];-->
+
+<!--    // Populate the database (only if empty)-->
+<!--    db.addresses.count().then(count => {-->
+<!--        if (count === 0) {-->
+<!--            db.addresses.bulkAdd(addressData).then(() => {-->
+<!--                console.log("Address data added to the database.");-->
+<!--            }).catch(Dexie.BulkError, (e) => {å-->
+<!--                console.error("Some addresses didn't succeed: ", e.failures);-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+
+    // Search Functionality
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+event.preventDefault();
+
+const searchName = document.getElementById('searchName').value.toLowerCase();
+const resultsList = document.getElementById('resultsList');
+resultsList.innerHTML = '';
+
+// Retrieve all records and then filter them manually
+db.addresses.toArray().then(results => {
+    const filteredResults = results.filter(address =>
+        address.name.toLowerCase().includes(searchName)
+    );
+
+    if (filteredResults.length > 0) {
+        filteredResults.forEach(result => {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item';
+            listItem.innerHTML = `<strong>${result.name}</strong><br>${result.address}<br>${result.phone}`;
+            resultsList.appendChild(listItem);
+        });
+    } else {
+        resultsList.innerHTML = '<li class="list-group-item">No results found</li>';
+    }
+}).catch(error => {
+    console.error("Search failed: ", error);
+});
+});
+</script>
+</body>
+</html>
