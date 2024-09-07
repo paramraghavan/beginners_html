@@ -45,25 +45,7 @@
     db.open().catch(function (err) {
         console.error("Open failed: " + err.stack);
     });
-        // Function to load JSON data from a file
-    async function loadJsonData() {
-        try {
-            const response = await fetch('addresses.json'); // Adjust the path as needed
-            const jsonData = await response.json();
 
-            // Clear existing data (optional)
-            await db.addresses.clear();
-            console.log(jsonData)
-            // Bulk add the JSON data to the database
-            await db.addresses.bulkAdd(jsonData);
-
-            console.log("Address data loaded from JSON file and added to the database.");
-        } catch (error) {
-            console.error("Failed to load data: ", error);
-        }
-    }
-    // Call the function to load json data
-    //loadJsonData();
     // Function to load CSV data from a file
     async function loadCsvData() {
         try {
@@ -91,25 +73,6 @@
 
     // Call the function to load CSV data
     loadCsvData();
-
-<!--    // ç (this would be generated from your CSV file)-->
-<!--    const addressData = [-->
-<!--        { name: "John Doe", address: "123 Market St, San Francisco, CA", phone: "123-456-7890" },-->
-<!--        { name: "Joseph Shapiro", address: "456 Broadway, New York, NY", phone: "234-567-8901" },-->
-<!--        { name: "Joan Smith", address: "789 Elm St, Boston, MA", phone: "345-678-9012" },-->
-<!--        // Add more records as needed-->
-<!--    ];-->
-
-<!--    // Populate the database (only if empty)-->
-<!--    db.addresses.count().then(count => {-->
-<!--        if (count === 0) {-->
-<!--            db.addresses.bulkAdd(addressData).then(() => {-->
-<!--                console.log("Address data added to the database.");-->
-<!--            }).catch(Dexie.BulkError, (e) => {å-->
-<!--                console.error("Some addresses didn't succeed: ", e.failures);-->
-<!--            });-->
-<!--        }-->
-<!--    });-->
 
     // Search Functionality
     document.getElementById('searchForm').addEventListener('submit', function(event) {
