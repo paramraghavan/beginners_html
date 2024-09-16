@@ -43,7 +43,6 @@
   - https://www.img2go.com/photo-editor
   - 
 
-
 - Recommended course
   - [html5 mastery - udemy course](https://www.udemy.com/course/html5-mastery-mobile-apps-websites/) 
 
@@ -55,3 +54,13 @@
  - cookbook git repo, https://github.com/paramraghavan/cookbook.git
  - [Using  indexed db with html](indexed_and_html.md)
  - Example using indexeddb to store addresses with my html page to be used for cached address search, [address book html page](addressbook%2Findex.html)
+
+## Indexed DB
+
+IndexedDB is a low-level API for client-side storage of large amounts of structured data, including files and blobs. It
+allows web applications to store data persistently in the user's browser. Unlike simpler storage mechanisms like
+cookies, localStorage, or sessionStorage, IndexedDB provides a powerful solution for storing complex data structures,
+large datasets, and more. [More in detail](indexed_and_html.md)
+
+Here is an example of storing a simple address book in csv format into indexed db and searching 
+this db by persons name - [addressbook](addressbook)
