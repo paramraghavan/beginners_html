@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Barcode Scanner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        #reader {
+            width: 100%;
+            position: relative;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        #video-container {
+            width: 100%;
+            height: 60vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .scan-region-highlight {
+            border: 2px solid #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.5);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            z-index: 100;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: #007bff;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:disabled {
+            background: #ccc;
+        }
+
+        #result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .error {
+            color: #dc3545;
+            padding: 1rem;
+            background: #f8d7da;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .success {
+            color: #28a745;
+            padding: 1rem;
+            background: #d4edda;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            #video-container {
+                height: 50vh;
+            }
+
+            .controls {
+                bottom: 1rem;
+            }
+
+            button {
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Barcode Scanner</h1>
+        <div id="reader">
+            <div id="video-container">
+                <video id="video" playsinline></video>
+            </div>
+        </div>
+        <div id="result"></div>
+        <div class="controls">
+            <button id="startButton">Start Scanner</button>
+            <button id="stopButton" disabled>Stop Scanner</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@zxing/library@latest"></script>
+    <script>
+// The HTML remains the same, only the JavaScript part needs to be fixed
+
+class BarcodeScanner {
+    constructor() {
+        this.codeReader = new ZXing.BrowserMultiFormatReader();
+        this.videoElement = document.getElementById('video');
+        this.resultElement = document.getElementById('result');
+        this.startButton = document.getElementById('startButton');
+        this.stopButton = document.getElementById('stopButton');
+
+        this.selectedDeviceId = null;
+        this.isScanning = false;
+
+        this.initializeButtons();
+    }
+
+    initializeButtons() {
+        this.startButton.addEventListener('click', () => this.startScanning());
+        this.stopButton.addEventListener('click', () => this.stopScanning());
+    }
+
+    async startScanning() {
+        try {
+            // Reset previous results
+            this.resultElement.innerHTML = '';
+
+            // Get available video devices using the correct API
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const videoDevices = devices.filter(device => device.kind === 'videoinput');
+
+            // Prefer back camera on mobile devices
+            const backCamera = videoDevices.find(device =>
+                device.label.toLowerCase().includes('back') ||
+                device.label.toLowerCase().includes('rear'));
+
+            this.selectedDeviceId = backCamera ? backCamera.deviceId : videoDevices[0]?.deviceId;
+
+            if (!this.selectedDeviceId) {
+                throw new Error('No camera devices found');
+            }
+
+            // Start continuous scanning
+            await this.codeReader.decodeFromVideoDevice(
+                this.selectedDeviceId,
+                this.videoElement,
+                (result, error) => {
+                    if (result) {
+                        this.handleSuccess(result);
+                    }
+                    if (error && !(error instanceof ZXing.NotFoundException)) {
+                        this.handleError(error);
+                    }
+                }
+            );
+
+            this.isScanning = true;
+            this.updateButtonStates();
+            this.showMessage('Scanner started', 'success');
+
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    stopScanning() {
+        this.codeReader.reset();
+        this.isScanning = false;
+        this.updateButtonStates();
+        this.showMessage('Scanner stopped', 'success');
+    }
+
+    handleSuccess(result) {
+        // Create result HTML
+        const resultHTML = `
+            <div class="success">
+                <h3>Barcode Detected!</h3>
+                <p><strong>Format:</strong> ${result.getBarcodeFormat()}</p>
+                <p><strong>Value:</strong> ${result.getText()}</p>
+                <p><strong>Timestamp:</strong> ${new Date().toLocaleString()}</p>
+            </div>
+        `;
+
+        this.resultElement.innerHTML = resultHTML;
+
+        // Optional: Vibrate device on success
+        if (navigator.vibrate) {
+            navigator.vibrate(200);
+        }
+    }
+
+    handleError(error) {
+        console.error('Scanner error:', error);
+        this.resultElement.innerHTML = `
+            <div class="error">
+                <h3>Error</h3>
+                <p>${error.message || 'Failed to start scanner'}</p>
+            </div>
+        `;
+        this.stopScanning();
+    }
+
+    showMessage(message, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = type;
+        messageDiv.textContent = message;
+        this.resultElement.prepend(messageDiv);
+
+        // Remove message after 3 seconds
+        setTimeout(() => messageDiv.remove(), 3000);
+    }
+
+    updateButtonStates() {
+        this.startButton.disabled = this.isScanning;
+        this.stopButton.disabled = !this.isScanning;
+    }
+}
+
+// Initialize scanner when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const scanner = new BarcodeScanner();
+
+    // Handle page visibility changes
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && scanner.isScanning) {
+            scanner.stopScanning();
+        }
+    });
+
+    // Handle orientation changes
+    window.addEventListener('orientationchange', () => {
+        if (scanner.isScanning) {
+            scanner.stopScanning();
+            setTimeout(() => scanner.startScanning(), 100);
+        }
+    });
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZIP CSV Parser</title>
+    <!-- Include JSZip for ZIP file handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <!-- Include Papa Parse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loader:after {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .file-input {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ZIP CSV Parser</h1>
+
+        <div class="file-input">
+            <input type="file" id="zipFile" accept=".zip" />
+            <button onclick="processZipFile()">Process ZIP File</button>
+        </div>
+
+        <div id="loader" class="loader"></div>
+        <div id="error"></div>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Median Household Income</th>
+                    <th>Population</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        async function processZipFile() {
+            const fileInput = document.getElementById('zipFile');
+            const loader = document.getElementById('loader');
+            const error = document.getElementById('error');
+            const tableBody = document.getElementById('tableBody');
+
+            // Reset previous state
+            error.style.display = 'none';
+            loader.style.display = 'block';
+            tableBody.innerHTML = '';
+
+            try {
+                const file = fileInput.files[0];
+                if (!file) {
+                    throw new Error('Please select a ZIP file');
+                }
+
+                // Read the ZIP file
+                const zipData = await file.arrayBuffer();
+                const zip = await JSZip.loadAsync(zipData);
+
+                // Find the first CSV file in the ZIP
+                const csvFile = Object.values(zip.files).find(file =>
+                    file.name.toLowerCase().endsWith('.csv')
+                );
+
+                if (!csvFile) {
+                    throw new Error('No CSV file found in the ZIP');
+                }
+
+                // Get CSV content
+                const csvContent = await csvFile.async('string');
+
+                // Parse CSV
+                Papa.parse(csvContent, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        // Create table rows
+                        results.data.forEach(row => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td>${row.State}</td>
+                                <td>${row.City}</td>
+                                <td>$${Number(row.Median_Household_Income).toLocaleString()}</td>
+                                <td>${Number(row.Population).toLocaleString()}</td>
+                            `;
+                            tableBody.appendChild(tr);
+                        });
+
+                        loader.style.display = 'none';
+                    },
+                    error: function(err) {
+                        throw new Error('Error parsing CSV: ' + err);
+                    }
+                });
+            } catch (err) {
+                loader.style.display = 'none';
+                error.style.display = 'block';
+                error.textContent = err.message;
+                console.error('Error processing file:', err);
+            }
+        }
+    </script>
+</body>
+</html>

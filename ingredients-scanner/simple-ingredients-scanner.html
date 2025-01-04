@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Ingredient Scanner</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUHJvZHVjdCBTY2FubmVyIiwic2hvcnRfbmFtZSI6IlNjYW5uZXIiLCJzdGFydF91cmwiOiIvIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsInRoZW1lX2NvbG9yIjoiIzJjM2U1MCJ9">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .camera-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        #video {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        #canvas {
+            display: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: #95a5a6;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            white-space: pre-wrap;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loader::after {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2c3e50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status {
+            text-align: center;
+            color: #666;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 20px;">Product Ingredient Scanner</h1>
+
+        <div class="camera-container">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <button id="captureBtn" disabled>Capture Image</button>
+        <button id="toggleCameraBtn">Switch Camera</button>
+
+        <div class="status" id="status">Initializing...</div>
+        <div class="loader" id="loader"></div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Initialize variables
+        let currentStream;
+        let currentFacingMode = 'environment';
+        let worker;
+
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('captureBtn');
+        const toggleCameraBtn = document.getElementById('toggleCameraBtn');
+        const status = document.getElementById('status');
+        const loader = document.getElementById('loader');
+        const result = document.getElementById('result');
+
+        // Initialize Tesseract
+        async function initTesseract() {
+            try {
+                status.textContent = 'Initializing Tesseract...';
+                worker = await Tesseract.createWorker();
+                await worker.loadLanguage('eng');
+                await worker.initialize('eng');
+                status.textContent = 'Tesseract ready. Starting camera...';
+                startCamera();
+            } catch (err) {
+                console.error('Error initializing Tesseract:', err);
+                status.textContent = 'Error initializing Tesseract';
+            }
+        }
+
+        // Start camera
+        async function startCamera() {
+            try {
+                if (currentStream) {
+                    currentStream.getTracks().forEach(track => track.stop());
+                }
+
+                const constraints = {
+                    video: {
+                        facingMode: currentFacingMode,
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                };
+
+                currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = currentStream;
+                captureBtn.disabled = false;
+                status.textContent = 'Camera ready';
+            } catch (err) {
+                console.error('Error accessing camera:', err);
+                status.textContent = 'Error accessing camera';
+            }
+        }
+
+        // Toggle between front and back cameras
+        toggleCameraBtn.addEventListener('click', () => {
+            currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+            startCamera();
+        });
+
+        // Capture and process image
+        captureBtn.addEventListener('click', async () => {
+            // Setup canvas and capture frame
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+
+            // Show loading state
+            loader.style.display = 'block';
+            status.textContent = 'Processing image...';
+            captureBtn.disabled = true;
+
+            try {
+                // Process image with Tesseract
+                const imageData = canvas.toDataURL('image/png');
+                const { data: { text } } = await worker.recognize(imageData);
+
+                // Process the extracted text to find ingredients
+                const ingredients = extractIngredients(text);
+
+                // Display results
+                result.innerHTML = `
+                    <h3>Extracted Text:</h3>
+                    <p>${text}</p>
+                    <h3>Possible Ingredients:</h3>
+                    <p>${ingredients.join(', ') || 'No ingredients found'}</p>
+                `;
+            } catch (err) {
+                console.error('Error processing image:', err);
+                status.textContent = 'Error processing image';
+            }
+
+            // Reset UI state
+            loader.style.display = 'none';
+            captureBtn.disabled = false;
+            status.textContent = 'Ready to scan';
+        });
+
+        // Helper function to extract ingredients from text
+        function extractIngredients(text) {
+            // Look for common ingredient list markers
+            const markers = [
+                'ingredients:',
+                'ingredients',
+                'contains:',
+                'contains'
+            ];
+
+            let lowerText = text.toLowerCase();
+            let ingredients = [];
+
+            // Try to find ingredient section
+            for (const marker of markers) {
+                const index = lowerText.indexOf(marker);
+                if (index !== -1) {
+                    // Extract text after the marker
+                    let ingredientText = text.slice(index + marker.length);
+                    // Split by common separators
+                    ingredients = ingredientText
+                        .split(/[,.]/)
+                        .map(i => i.trim())
+                        .filter(i => i.length > 1);
+                    break;
+                }
+            }
+
+            return ingredients;
+        }
+
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('ServiceWorker registration failed:', err);
+                });
+            });
+        }
+
+        // Start initialization
+        initTesseract();
+    </script>
+</body>
+</html>
