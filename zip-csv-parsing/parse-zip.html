@@ -133,6 +133,11 @@
             tableBody.innerHTML = '';
 
             try {
+                // Get the first (and only) file, assuming you always have one csv file in the zip
+                // const csvFile = Object.values(zipContent.files)[0];
+                // const csvText = await csvFile.async('string');
+                // End.
+
                 const file = fileInput.files[0];
                 if (!file) {
                     throw new Error('Please select a ZIP file');
