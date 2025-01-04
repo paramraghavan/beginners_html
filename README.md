@@ -60,7 +60,13 @@
 IndexedDB is a low-level API for client-side storage of large amounts of structured data, including files and blobs. It
 allows web applications to store data persistently in the user's browser. Unlike simpler storage mechanisms like
 cookies, localStorage, or sessionStorage, IndexedDB provides a powerful solution for storing complex data structures,
-large datasets, and more. [More in detail](indexed_and_html.md)
+large datasets, and more. [More in detail](indexeddb_and_html.md)
 
 Here is an example of storing a simple address book in csv format into indexed db and searching 
 this db by persons name - [addressbook](addressbook)
+
+## [Setup html5 and IDE](guide-build-html5-app-with-ide.md)
+
+## [How to host your webapp on github](how-to-host-you-webapp-github.md)
+
+## [How to run your HTTPS website development/testing](https-server.md)
