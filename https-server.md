@@ -50,7 +50,7 @@ with the `ssl` module.
 ---
 
 3. **Run the Script**
-   Execute the script from the terminal:
+pycharm ide for html   Execute the script from the terminal where you have your index.html:
 
    ```bash
    python https_server.py
