@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Autocorrection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .output {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            min-height: 150px;
+            background-color: #f9f9f9;
+        }
+        .corrected {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Autocorrection</h1>
+        <div>
+            <h3>Original Text:</h3>
+            <textarea id="inputText" placeholder="Enter or paste your text here..."></textarea>
+            <button onclick="autoCorrect()">Auto-correct Text</button>
+        </div>
+        <div>
+            <h3>Corrected Text:</h3>
+            <div id="output" class="output"></div>
+        </div>
+    </div>
+
+    <script>
+        // Common misspellings dictionary
+        const corrections = {
+            'pearyts': 'peanuts',
+            'peanyts': 'peanuts',
+            'peakut': 'peanut',
+            'teh': 'the',
+            'recieve': 'receive',
+            'wierd': 'weird',
+            'thier': 'their',
+            'doesnt': "doesn't",
+            'cant': "can't",
+            'wont': "won't",
+            'isnt': "isn't",
+            'didnt': "didn't",
+            'couldnt': "couldn't",
+            'shouldnt': "shouldn't",
+            'wouldnt': "wouldn't",
+            'seperate': 'separate',
+            'occured': 'occurred',
+            'occurence': 'occurrence',
+            'alot': 'a lot',
+            'untill': 'until',
+            'allways': 'always',
+            'definately': 'definitely',
+            'truely': 'truly',
+            'beleive': 'believe',
+            'publically': 'publicly',
+            'companys': 'companies',
+            'accidentaly': 'accidentally',
+            'accomodate': 'accommodate',
+            'achievment': 'achievement',
+            'acknowlege': 'acknowledge',
+            'aquire': 'acquire',
+            'apparant': 'apparent',
+            'arguement': 'argument',
+            'assesment': 'assessment',
+            'becuase': 'because',
+            'begining': 'beginning',
+            'buisness': 'business',
+            'calender': 'calendar',
+            'catagory': 'category',
+            'comming': 'coming',
+            'commitee': 'committee',
+            'completly': 'completely',
+            'concious': 'conscious',
+            'decieve': 'deceive',
+            'desparate': 'desperate',
+            'diferent': 'different',
+            'dissapoint': 'disappoint',
+            'embarass': 'embarrass',
+            'enviroment': 'environment',
+            'existance': 'existence',
+            'familar': 'familiar',
+            'finaly': 'finally',
+            'foriegn': 'foreign',
+            'freind': 'friend',
+            'goverment': 'government',
+            'gaurd': 'guard',
+            'happend': 'happened',
+            'harrass': 'harass',
+            'immediatly': 'immediately',
+            'independant': 'independent',
+            'interuption': 'interruption',
+            'knowlege': 'knowledge',
+            'liason': 'liaison',
+            'libary': 'library',
+            'lightening': 'lightning',
+            'maintenence': 'maintenance',
+            'medival': 'medieval',
+            'millenium': 'millennium',
+            'neccessary': 'necessary',
+            'noticable': 'noticeable',
+            'occassion': 'occasion',
+            'occurrance': 'occurrence',
+            'peice': 'piece',
+            'persistant': 'persistent',
+            'pharoah': 'pharaoh',
+            'posession': 'possession',
+            'prefered': 'preferred',
+            'propoganda': 'propaganda',
+            'publically': 'publicly',
+            'realy': 'really',
+            'recieve': 'receive',
+            'refered': 'referred',
+            'relevent': 'relevant',
+            'religous': 'religious',
+            'remeber': 'remember',
+            'resistence': 'resistance',
+            'resturaunt': 'restaurant',
+            'rythm': 'rhythm',
+            'secratary': 'secretary',
+            'sentance': 'sentence',
+            'seperate': 'separate',
+            'shineing': 'shining',
+            'similer': 'similar',
+            'sincerely': 'sincerely',
+            'speach': 'speech',
+            'succesful': 'successful',
+            'suprise': 'surprise',
+            'tommorrow': 'tomorrow',
+            'truely': 'truly',
+            'twelvth': 'twelfth',
+            'untill': 'until',
+            'usally': 'usually',
+            'vaccum': 'vacuum',
+            'vegtable': 'vegetable',
+            'visable': 'visible',
+            'wensday': 'wednesday',
+            'wether': 'weather',
+            'wierd': 'weird',
+            'writeing': 'writing'
+        };
+
+        function autoCorrect() {
+            const input = document.getElementById('inputText').value;
+            let correctedText = input;
+
+            // Split into words while preserving punctuation and spacing
+            const words = correctedText.split(/(\s+)/);
+
+            // Process each word
+            correctedText = words.map(word => {
+                const lowerWord = word.toLowerCase();
+                if (corrections[lowerWord]) {
+                    return `<span class="corrected">${corrections[lowerWord]}</span>`;
+                }
+                return word;
+            }).join('');
+
+            // Basic capitalization rules
+            correctedText = correctedText.replace(/(?<=^|[.!?]\s+)[a-z]/g, letter => letter.toUpperCase());
+
+            // Basic punctuation rules
+            correctedText = correctedText.replace(/\s+([.,!?])/g, '$1');
+            correctedText = correctedText.replace(/([.,!?])(?!["\s])/g, '$1 ');
+
+            // Display the corrected text
+            document.getElementById('output').innerHTML = correctedText;
+        }
+
+        // Add example text
+        document.getElementById('inputText').value = 'teh quick brown fox jumped over the lasy dog.it was a wierd day and alot of things happend.';
+    </script>
+</body>
+</html>
