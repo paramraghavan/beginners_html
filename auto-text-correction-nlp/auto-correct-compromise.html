@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Text Auto-Correction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .output {
+            border: 1px solid #e5e7eb;
+            padding: 1rem;
+            min-height: 150px;
+            background-color: #f9fafb;
+            white-space: pre-wrap;
+        }
+        .corrected {
+            color: #2563eb;
+            text-decoration: underline;
+            position: relative;
+            cursor: help;
+        }
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem;
+            background: #1f2937;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            display: none;
+            z-index: 10;
+        }
+        .corrected:hover .tooltip {
+            display: block;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OCR Text Auto-Correction</h1>
+        <textarea id="inputText" placeholder="Enter scanned text..."></textarea>
+        <button onclick="correctText()">Correct Text</button>
+        <h3>Corrected Text:</h3>
+        <div id="output" class="output"></div>
+    </div>
+
+    <!-- Include Compromise JS Library -->
+    <script src="https://unpkg.com/compromise"></script>
+
+    <script>
+        const corrections = {
+            'l0': '10',
+            '0il': 'oil',
+            'sa1t': 'salt',
+            'powd3r': 'powder',
+            'tumeric': 'turmeric',
+            'vannilla': 'vanilla',
+            'corriander': 'coriander',
+            'msg': 'monosodium glutamate'
+        };
+
+        function correctText() {
+            const input = document.getElementById('inputText').value;
+
+            // Apply predefined corrections
+            let correctedText = input.split(/(\\s+|[.,;:])/).map(word => {
+                const lowerWord = word.toLowerCase().trim();
+                if (corrections[lowerWord]) {
+                    return `<span class="corrected">${corrections[lowerWord]}<span class="tooltip">Corrected: '${word}' → '${corrections[lowerWord]}'</span></span>`;
+                }
+                return word;
+            }).join('');
+
+            // Use Compromise for text cleanup
+            let doc = nlp(correctedText);
+
+            // Normalize text using compromise
+            correctedText = doc.normalize({ whitespace: true, punctuation: true }).text();
+
+            document.getElementById('output').innerHTML = correctedText;
+        }
+    </script>
+</body>
+</html>
