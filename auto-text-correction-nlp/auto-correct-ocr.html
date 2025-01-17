@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grocery Ingredient OCR Correction</title>
+    <title>Advanced Grocery Ingredient Correction</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 900px;
             margin: 2rem auto;
             padding: 0 1rem;
             background-color: #f5f5f5;
@@ -18,12 +18,17 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        .input-section {
+            margin-bottom: 2rem;
+        }
         textarea {
             width: 100%;
             min-height: 150px;
             padding: 1rem;
             margin-bottom: 1rem;
             font-size: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
         }
         .output {
             border: 1px solid #e5e7eb;
@@ -31,6 +36,7 @@
             min-height: 150px;
             background-color: #f9fafb;
             white-space: pre-wrap;
+            border-radius: 4px;
         }
         .corrected {
             color: #2563eb;
@@ -56,58 +62,137 @@
             display: block;
         }
         button {
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             background-color: #2563eb;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #1d4ed8;
+        }
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .stats {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #f3f4f6;
+            border-radius: 4px;
+            font-size: 0.875rem;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Grocery Ingredient OCR Correction</h1>
-        <textarea id="inputText" placeholder="Enter scanned ingredient text..."></textarea>
-        <button onclick="correctText()">Correct Text</button>
-        <h3>Corrected Text:</h3>
-        <div id="output" class="output"></div>
+        <h1>Advanced Ingredient Text Correction</h1>
+        <div class="input-section">
+            <h3>Original Text:</h3>
+            <textarea id="inputText" placeholder="Enter ingredient text to correct..."></textarea>
+            <div class="controls">
+                <button onclick="correctText()">Correct Text</button>
+            </div>
+        </div>
+        <div class="output-section">
+            <h3>Corrected Text:</h3>
+            <div id="output" class="output"></div>
+        </div>
+        <div id="stats" class="stats"></div>
     </div>
 
     <script>
-        // Common OCR misreadings and ingredient misspellings
+        // Comprehensive corrections dictionary
         const corrections = {
-            // OCR Common Confusions
-            'l0': '10',
-            'l00': '100',
-            '0il': 'oil',
-            '0live': 'olive',
-            'c0rn': 'corn',
+            // Grains & Flours
             'fl0ur': 'flour',
-            'sa1t': 'salt',
-            'vineg4r': 'vinegar',
-            'tom4to': 'tomato',
-            'powd3r': 'powder',
-            'wat3r': 'water',
+            'wh0le': 'whole',
+            'wholeseed': 'whole seed',
+            'wholewheat': 'whole wheat',
+            'allpurpose': 'all-purpose',
+            'allpurposeflour': 'all-purpose flour',
+            'breadflour': 'bread flour',
+            'wheatflour': 'wheat flour',
+            'cornflour': 'corn flour',
+            'cornstach': 'cornstarch',
+            'pearyts': 'peanuts',
+            'peant': 'peanut',
+            'peanyts': 'peanuts',
+            'soy protien': 'soy protein',
             'sugqr': 'sugar',
             'sugor': 'sugar',
-            'soIt': 'salt',
-            'sa1t': 'salt',
-            'oiI': 'oil',
-            'oii': 'oil',
-            '011': 'oil',
-
-            // Common Ingredient Misspellings
             'tumeric': 'turmeric',
+            'vannilla': 'vanilla',
+            'vanila': 'vanilla',
+            'chicory r': 'chicory root',
+            'glycy': 'glycerin',
+            'natyry': 'natural',
+            'vegatable': 'vegetable',
+            'vegtable': 'vegetable',
+            'tom4to': 'tomato',
+            'cornstartch': 'cornstarch',
+            'carrotsy': 'carrots',
+            'broccolli': 'broccoli',
+            'zuchini': 'zucchini',
+            'cummin': 'cumin',
+            'corriander': 'coriander',
+            // Dairy & Eggs
+            'wholemilk': 'whole milk',
+            'skimmilk': 'skim milk',
+            'yougurt': 'yogurt',
+            'yoghourt': 'yogurt',
+            'chese': 'cheese',
+            'cheeze': 'cheese',
+            'cheddar': 'cheddar',
+            'mozzarela': 'mozzarella',
+            'mozzarella': 'mozzarella',
+            'egs': 'eggs',
+            'eggyolk': 'egg yolk',
+            'eggwhite': 'egg white',
+
+            // Fats & Oils
+            '0il': 'oil',
+            'oliveoil': 'olive oil',
+            'vegetableoil': 'vegetable oil',
+            'sunfloweroil': 'sunflower oil',
+            'cannolaoil': 'canola oil',
+            'margerine': 'margarine',
+          // Oils
+            'vegtble oils': 'vegetable oils',
+            'paim oil': 'palm oil',
+            'pain oil': 'palm oil',
+            'sunnflower oil': 'sunflower oil',
+            'uckee': 'sunflower oil',
+
+            // Additives
+            'ascorbic': 'ascorbic acid',
+            'citric': 'citric acid',
+            'msg': 'monosodium glutamate',
+            'bht': 'butylated hydroxytoluene',
+            'bha': 'butylated hydroxyanisole',
+
+            // Allergens
+            'penut': 'peanut',
+            'peakut': 'peanut',
+            'wallnut': 'walnut',
+            'cashwew': 'cashew',
+            'almondt': 'almond',
+            'soya': 'soy',
+            'soyabean': 'soybean',
+            'containg': 'contains',
+
+            // Common Ingredients & Spices
             'cinamon': 'cinnamon',
             'cinammon': 'cinnamon',
             'corriander': 'coriander',
-            'cumin': 'cumin',
-            'taragon': 'tarragon',
-            'teragon': 'tarragon',
-            'parsely': 'parsley',
+            'tumeric': 'turmeric',
+            'termeric': 'turmeric',
+            'cummin': 'cumin',
             'organo': 'oregano',
-            'oragano': 'oregano',
             'origano': 'oregano',
             'thime': 'thyme',
             'garlick': 'garlic',
@@ -116,34 +201,60 @@
             'vineger': 'vinegar',
             'vannilla': 'vanilla',
             'vanila': 'vanilla',
-            'cardomom': 'cardamom',
-            'cardamon': 'cardamom',
-            'cardamum': 'cardamom',
-            'tumeric': 'turmeric',
-            'termeric': 'turmeric',
-            'cummin': 'cumin',
-            'corriander': 'coriander',
-            'cilantro': 'coriander',
 
-            // Common Preservatives and Additives
-            'ascorbic': 'ascorbic acid',
-            'citric': 'citric acid',
+            // Preservatives and Additives
             'msg': 'monosodium glutamate',
             'bht': 'butylated hydroxytoluene',
             'bha': 'butylated hydroxyanisole',
+            'ascorbic': 'ascorbic acid',
+            'citric': 'citric acid',
 
-            // Common Food Allergens
-            'wheot': 'wheat',
-            'wheet': 'wheat',
-            'soya': 'soy',
-            'soyabean': 'soybean',
-            'penut': 'peanut',
-            'wallnut': 'walnut',
-            'cashwew': 'cashew',
-            'sesum': 'sesame',
-            'sesam': 'sesame',
+         // Measurements
+            'l0': '10',
+            'l00': '100',
+            '0.5%': '0.5%',
+            '28 ,': '28g',
+            '12kg': '12 kg',
+            'grams': 'g',
+            'milli': 'ml',
+            'ounces': 'oz',
+            'lb': 'pound',
+            'kgs': 'kg',
 
-            // Measurements and Units
+            // Packaging Terms
+            'ingr': 'ingredients',
+            'ingredents': 'ingredients',
+            'ingrediant': 'ingredient',
+            'nutritonal': 'nutritional',
+            'contams': 'contains',
+
+            // Nutritional Terms
+            'protien': 'protein',
+            'cholestrol': 'cholesterol',
+            'fibre': 'fiber',
+            'carbohydrat': 'carbohydrate',
+
+            // Common Food-Related Words
+            'artifical': 'artificial',
+            'colouring': 'coloring',
+            'pastuerized': 'pasteurized',
+            'homogenised': 'homogenized',
+            'sterilised': 'sterilized',
+
+            // Quantity Corrections
+            'l%': '1%',
+            'l00%': '100%',
+            'percent': '%',
+            '1/2': 'half',
+            '3/4': 'three-fourths',
+
+            // Others
+            'resints': 'ingredients',
+            'uckee': 'sunflower',
+            'sly': 'soy',
+            'bucanner': 'buckwheat',
+            'conains': 'contains',
+            // Units
             'gms': 'g',
             'grms': 'g',
             'grams': 'g',
@@ -151,179 +262,107 @@
             'milli': 'ml',
             'kgs': 'kg',
             'kilos': 'kg',
-            'oz': 'ounces',
-            'lb': 'pounds',
-            'lbs': 'pounds',
+            'tblsp': 'tbsp',
+            'tspn': 'tsp',
 
-            // Common Packaging Terms
-            'ingr': 'ingredients',
-            'ingredents': 'ingredients',
-            'ingrediant': 'ingredient',
-            'ingrediants': 'ingredients',
-            'nutritonal': 'nutritional',
-            'nutrician': 'nutrition',
-            'allergen': 'allergens',
-            'contans': 'contains',
-            'contamins': 'contains',
-
-            // Numbers and Percentages
-            'o%': '0%',
-            'l%': '1%',
-            'l00%': '100%',
-            'percent': '%',
-
-            // Color-related Terms
-            'artifical': 'artificial',
-            'colouring': 'coloring',
-            'colorant': 'coloring',
-
-            // Processing Terms
-            'homogenised': 'homogenized',
-            'pasteurised': 'pasteurized',
-            'sterilised': 'sterilized',
-            'processd': 'processed',
-
-            // Nutritional Terms
-            'protien': 'protein',
-            'carbohydrat': 'carbohydrate',
-            'carbohidrate': 'carbohydrate',
-            'fibre': 'fiber',
-            'cholestrol': 'cholesterol',
-            'cholesteral': 'cholesterol'
+            // Additional merged corrections from original
+            'l0': '10',
+            'l00': '100',
+            '0live': 'olive',
+            'c0rn': 'corn',
+            'sa1t': 'salt',
+            'powd3r': 'powder',
+            'wat3r': 'water',
+            'sugqr': 'sugar',
+            'sugor': 'sugar',
+            'soIt': 'salt'
         };
 
-        // OCR Pattern Fixes
-        /*
-         * This collection of patterns addresses common OCR misreadings in food packaging
-         * Each pattern includes:
-         * - A regular expression to match the error pattern
-         * - A replacement string or function to fix the error
-         * - Comments explaining the purpose and examples
-         */
-
-        // Main pattern array for text correction
+        // Enhanced OCR patterns
         const ocrPatterns = [
-            // ====== Number Recognition Fixes ======
-            // Common issues: OCR often confuses similar-looking characters in numbers
-
-            // Fix leading '1's that were read as 'I' or '|'
-            // Example: "I23" -> "123", "|45" -> "145"
+            // Number Fixes
             { pattern: /[1I|](?=\d)/g, replacement: '1' },
-
-            // Fix zeros that were read as capital 'O'
-            // Example: "1O2" -> "102", "5O" -> "50"
             { pattern: /(\d)O/g, replacement: '$10' },
-
-            // Fix leading zeros read as 'O'
-            // Example: "O789" -> "0789"
             { pattern: /O(?=\d)/g, replacement: '0' },
-
-            // Fix ones read as lowercase 'l' between numbers
-            // Example: "2l3" -> "213"
             { pattern: /(\d)l(?=\d)/g, replacement: '$11' },
-
-            // Standardize percentage formatting
-            // Example: "50 %" -> "50%", "25.%" -> "25%"
             { pattern: /(\d+)[\s.]*%/g, replacement: '$1%' },
 
-            // ====== Decimal and Number Separator Fixes ======
-            // Common issues: Inconsistent decimal points and thousand separators
-
-            // Convert comma decimals to period decimals
-            // Example: "3,14" -> "3.14"
+            // Decimal & Unit Fixes
             { pattern: /(\d),(\d)/g, replacement: '$1.$2' },
-
-            // Fix multiple decimal points from OCR errors
-            // Example: "3.14.159" -> "3.14"
             { pattern: /(\d+)\.(\d+)\.(\d+)/g, replacement: '$1.$2' },
-
-            // Remove thousand separators for consistency
-            // Example: "1,000,000" -> "1000000"
             { pattern: /(\d{1,3}(?:,\d{3})+)(?!\d)/g, replacement: (m) => m.replace(/,/g, '') },
+            { pattern: /(\d+)[\s.]*([gmlk])/gi, replacement: '$1$2' },
+            { pattern: /(\d+)[\s.]*m[gq]/gi, replacement: '$1mg' },
+            { pattern: /(\d+)[\s.]*k[gq]/gi, replacement: '$1kg' },
+            { pattern: /(\d+)[\s.]*m[l1]/gi, replacement: '$1ml' },
 
-            // Unit Fixes
-            { pattern: /(\d+)[\s.]*([gmlk])/gi, replacement: '$1$2' }, // Fix unit spacing
-            { pattern: /(\d+)[\s.]*m[gq]/gi, replacement: '$1mg' },    // Fix mg units
-            { pattern: /(\d+)[\s.]*k[gq]/gi, replacement: '$1kg' },    // Fix kg units
-            { pattern: /(\d+)[\s.]*m[l1]/gi, replacement: '$1ml' },    // Fix ml units
+            // Character & Punctuation
+            { pattern: /[;]/g, replacement: ',' },
+            { pattern: /[`'´]/g, replacement: '\'' },
+            { pattern: /[\u2018\u2019]/g, replacement: '\'' },
+            { pattern: /[\u201C\u201D]/g, replacement: '"' },
+            { pattern: /(\w+)\s*:\s*/g, replacement: '$1: ' },
+            { pattern: /\s+,/g, replacement: ',' },
+            { pattern: /,\s+/g, replacement: ', ' },
 
-            // Punctuation Fixes
-            { pattern: /[;]/g, replacement: ',' },             // Fix semicolons as commas
-            { pattern: /[`'´]/g, replacement: '\'' },          // Standardize apostrophes
-            { pattern: /[\u2018\u2019]/g, replacement: '\'' }, // Smart quotes to straight
-            { pattern: /[\u201C\u201D]/g, replacement: '"' },  // Smart double quotes to straight
-            { pattern: /(\w+)\s*:\s*/g, replacement: '$1: ' }, // Standardize colon spacing
-            { pattern: /\s+,/g, replacement: ',' },            // Fix comma spacing
-            { pattern: /,\s+/g, replacement: ', ' },           // Standardize comma spacing
+            // Common Confusions
+            { pattern: /rn/g, replacement: 'm' },
+            { pattern: /cl/g, replacement: 'd' },
+            { pattern: /vv/g, replacement: 'w' },
+            { pattern: /[∕⁄]/g, replacement: '/' },
 
-            // Common Letter Confusions
-            { pattern: /rn/g, replacement: 'm' },              // Fix 'rn' to 'm'
-            { pattern: /cl/g, replacement: 'd' },              // Fix 'cl' to 'd'
-            { pattern: /vv/g, replacement: 'w' },              // Fix 'vv' to 'w'
-            { pattern: /[∕⁄]/g, replacement: '/' },            // Fix different slash types
-
-            // Bracket and Parenthesis Fixes
-            { pattern: /[\[\]{}]/g, replacement: '(' },        // Standardize bracket types
-            { pattern: /[（）]/g, replacement: '(' },           // Fix full-width parentheses
-            { pattern: /\(\s+/g, replacement: '(' },           // Fix spacing inside brackets
-            { pattern: /\s+\)/g, replacement: ')' },           // Fix spacing inside brackets
-
-            // Common Food Label Fixes
-            { pattern: /\b(e[\s-]*\d{3})[a-d]?\b/gi, replacement: (m) => m.replace(/\s+/g, '').toLowerCase() }, // E-numbers
-            { pattern: /\b(\d+)\s*([kcal])\b/gi, replacement: '$1$2' }, // Fix calorie units
-            { pattern: /\b(vitamin)\s+([a-d])\d*\b/gi, replacement: 'Vitamin $2' }, // Fix vitamin names
-
-            // White Space Fixes
-            { pattern: /\s+/g, replacement: ' ' },             // Multiple spaces to single
-            { pattern: /^\s+|\s+$/g, replacement: '' },        // Trim white space
-            { pattern: /([.,!?:;])\s*/g, replacement: '$1 ' }, // Fix punctuation spacing
-
-            // Special Character Fixes
-            { pattern: /[˚°º⁰]/g, replacement: '°' },          // Standardize degree symbol
-            { pattern: /[™®©]/g, replacement: '' },            // Remove trademark symbols
-            { pattern: /&amp;/g, replacement: '&' },           // Fix HTML entities
-            { pattern: /&/g, replacement: 'and' },             // Replace & with 'and'
-
-            // Quantity Fixes
-            { pattern: /(\d+)[\s-]*x[\s-]*(\d+)/gi, replacement: '$1x$2' }, // Fix multiplication
-            { pattern: /(\d+[\d.,]*)\s*x\s*(\d+[\d.,]*)/g, replacement: '$1×$2' }, // Standardize multiplication
-            { pattern: /½/g, replacement: '1/2' },             // Replace fraction symbols
+            // Fractions
+            { pattern: /½/g, replacement: '1/2' },
             { pattern: /⅓/g, replacement: '1/3' },
             { pattern: /¼/g, replacement: '1/4' },
+            { pattern: /¾/g, replacement: '3/4' },
 
-            // Date Format Fixes
-            { pattern: /(\d{2})[\.-](\d{2})[\.-](\d{4})/g, replacement: '$1/$2/$3' }, // Standardize dates
-            { pattern: /best\s+before\s*:?\s*end\s*/gi, replacement: 'Best Before: ' }, // Fix best before dates
-            { pattern: /exp(iry|ires)?\s*:?\s*/gi, replacement: 'Expiry: ' }           // Fix expiry dates
+            // Special Characters
+            { pattern: /[˚°º⁰]/g, replacement: '°' },
+            { pattern: /[™®©]/g, replacement: '' },
+            { pattern: /&amp;/g, replacement: '&' },
+            { pattern: /&/g, replacement: 'and' }
         ];
 
         function correctText() {
             const input = document.getElementById('inputText').value;
             let correctedText = input;
+            let corrections_made = 0;
+            let patterns_applied = 0;
 
-            // Apply OCR pattern fixes
+            // Apply OCR patterns
             ocrPatterns.forEach(({pattern, replacement}) => {
+                const before = correctedText;
                 correctedText = correctedText.replace(pattern, replacement);
+                if (before !== correctedText) {
+                    patterns_applied++;
+                }
             });
 
-            // Split into words while preserving punctuation and spacing
+            // Split into words while preserving punctuation
             const words = correctedText.split(/(\s+|(?=[.,;:])|(?<=[.,;:]))/);
 
             // Process each word
             correctedText = words.map(word => {
                 const lowerWord = word.toLowerCase().trim();
                 if (corrections[lowerWord]) {
+                    corrections_made++;
                     return `<span class="corrected">${corrections[lowerWord]}<span class="tooltip">Corrected: '${word}' → '${corrections[lowerWord]}'</span></span>`;
                 }
                 return word;
             }).join('');
 
-            // Display the corrected text
+            // Display results
             document.getElementById('output').innerHTML = correctedText;
+            document.getElementById('stats').innerHTML = `
+                Corrections made: ${corrections_made}<br>
+                Pattern fixes applied: ${patterns_applied}<br>
+                Total improvements: ${corrections_made + patterns_applied}
+            `;
         }
 
         // Add example text
-        document.getElementById('inputText').value = 'ingredents: artifical vanilla flavouring (vannilla), corriander, tumeric powd3r, sa1t, preservative (citric), and 0.5% monosodeum glutemate';
+        document.getElementById('inputText').value = 'ingredents: fl0ur, artifical vannilla flavouring, corriander, tumeric powd3r, sa1t, 1/2 tblsp cinamon, preservative (citric), and 0.5% monosodeum glutemate. Contains: wheot. Best bef0re: 01.12.2024';
     </script>
 </body>
 </html>
