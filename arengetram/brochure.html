@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharatanatyam Brochure</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #e6c87e;
+        }
+
+        .brochure {
+            width: 1056px; /* 11 inches at 96 dpi */
+            height: 1632px; /* 17 inches at 96 dpi */
+            background-color: #1a1a1a;
+            display: grid;
+            grid-template-columns: 352px 352px 352px;
+            grid-template-rows: 1632px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Front panels */
+        .panel-1 {
+            padding: 20px;
+            border-right: 1px dashed #e6c87e;
+            background-color: #1a1a1a;
+            outline: 2px solid #e6c87e;
+            margin: 5px;
+        }
+
+        .panel-2 {
+            padding: 20px;
+            border-right: 1px dashed #e6c87e;
+            background-color: #1a1a1a;
+            outline: 2px solid #e6c87e;
+            margin: 5px;
+        }
+
+        .panel-3 {
+            padding: 20px;
+            background-color: #1a1a1a;
+            outline: 2px solid #e6c87e;
+            margin: 5px;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            color: #e6c87e;
+            text-align: center;
+            text-shadow: 0 0 5px rgba(241, 213, 146, 0.3);
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: justify;
+            word-spacing: normal;
+            letter-spacing: normal;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo h1 {
+            font-size: 30px;
+            color: #f1d592;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+
+        .placeholder-img {
+            width: 100%;
+            height: 200px;
+            background-color: #2a2a2a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            color: #e6c87e;
+            border: 2px solid #e6c87e;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .placeholder-img p {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.5);
+            margin: 0;
+            padding: 5px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .small-placeholder {
+            height: 150px;
+        }
+
+        .large-placeholder {
+            height: 300px;
+        }
+
+        .dance-item {
+            margin-bottom: 20px;
+        }
+
+        .contact {
+            margin-top: 30px;
+            text-align: center;
+            border-top: 1px solid #e6c87e;
+            padding-top: 20px;
+        }
+
+        .bharatanatyam-border {
+            border: 2px solid #e6c87e;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: rgba(230, 200, 126, 0.05);
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* Decorative elements */
+        .decorative-element {
+            text-align: center;
+            margin: 15px 0;
+            color: #f1d592;
+            font-size: 24px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .decorated-lamp {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            color: #f1d592;
+            font-size: 24px;
+        }
+
+        .lamp-left {
+            top: 20px;
+            left: 30px;
+        }
+
+        .lamp-right {
+            top: 20px;
+            right: 30px;
+        }
+
+        .event-date {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+            color: #f1d592;
+            position: absolute;
+            bottom: 30px;
+            width: calc(100% - 40px);
+        }
+
+        .credits {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .dance-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dance-summary p {
+            word-spacing: normal !important;
+            white-space: normal !important;
+            letter-spacing: normal !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dance-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+
+        .flex-left {
+            flex: 1;
+        }
+
+        .flex-right {
+            flex: 1;
+        }
+
+        /* Optional: Add print-specific styles */
+        @media print {
+            .brochure {
+                width: 11in;
+                height: 17in;
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FRONT OF BROCHURE -->
+    <div class="brochure">
+        <!-- Panel 1 (Left panel when flat) -->
+        <div class="panel-1">
+            <div class="bharatanatyam-border">
+                <h2>About Bharatanatyam</h2>
+                <p>Bharatanatyam is one of India's oldest and most revered classical dance forms, originating in the temples of Tamil Nadu. This divine art form combines intricate footwork (nritta), expressive storytelling (nritya), and spiritual connection (bhava). Through precise hand gestures (mudras), facial expressions (abhinaya), and rhythmic movements, dancers bring to life ancient stories and emotions.</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>Our School</h3>
+                <p>At [Your School Name], we are dedicated to preserving and promoting the ancient art of Bharatanatyam. Our programs combine traditional techniques with contemporary teaching methods to create engaging learning experiences for students of all ages.</p>
+            </div>
+
+            <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                <p>School Photo</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>Our Programs</h3>
+                <p>Beginners: Foundational training in basic postures, hand gestures, and footwork patterns for students of all ages. Classes focus on developing proper technique and understanding the cultural significance of Bharatanatyam.</p>
+                <p>Intermediate & Advanced: Comprehensive training for dedicated students pursuing excellence in Bharatanatyam. These classes focus on complex choreographies and refined expressions.</p>
+                <p>Arangetram Preparation: Specialized coaching for students preparing for their debut solo performance, including intensive training in all aspects of Bharatanatyam.</p>
+            </div>
+        </div>
+
+        <!-- Panel 2 (Middle panel when flat) - Will be the back panel when folded -->
+        <div class="panel-2">
+            <h2>Student Bio</h2>
+
+            <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                <p>Student Photo</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p><strong>Name:</strong> [Student Name]</p>
+                <p><strong>Age:</strong> [Age]</p>
+                <p><strong>Training:</strong> [Training Years] years of Bharatanatyam training</p>
+                <p><strong>Achievements:</strong> [Notable Achievements]</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p>As a dedicated student of Bharatanatyam, [Student Name] has demonstrated exceptional commitment to mastering this ancient art form. Through rigorous training, [he/she] has developed a deep understanding of both technical and expressive elements of classical dance. [Student Name]'s passion for Bharatanatyam is evident in [his/her] disciplined approach to practice and enthusiasm for performance.</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p>This performance represents a significant milestone in [Student Name]'s journey as a dancer, showcasing [his/her] growth and dedication to preserving this cultural heritage. The items selected for this program highlight [his/her] versatility and artistic maturity.</p>
+            </div>
+        </div>
+
+        <!-- Panel 3 (Right panel when flat) - Will be front cover when folded -->
+        <div class="panel-3">
+            <div class="decorated-lamp lamp-left">✦</div>
+            <div class="decorated-lamp lamp-right">✦</div>
+
+            <div class="logo">
+                <h1>[DANCER NAME]</h1>
+                <h2>presents</h2>
+                <h1>BHARATANATYAM</h1>
+                <h3>Classical Dance of India</h3>
+            </div>
+
+            <div class="placeholder-img large-placeholder" style="background-image: url('/api/placeholder/400/320'); height: 300px;">
+                <p>Featured Dancer Pose</p>
+            </div>
+
+            <div class="event-date">
+                <h3>Friday, July 12, 2024</h3>
+                <p>[Venue Name]</p>
+                <p>[Time]</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK OF BROCHURE (second page) -->
+    <div class="brochure page-break">
+        <!-- Panel 4 (Left panel of back side) -->
+        <div class="panel-1">
+            <h2>Teacher Bio</h2>
+
+            <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                <p>Teacher Photo</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p><strong>Guru:</strong> [Teacher Name]</p>
+                <p><strong>Experience:</strong> [Years] years of teaching</p>
+                <p><strong>Lineage:</strong> [Dance Lineage/School]</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p>[Teacher Name] is a distinguished Bharatanatyam exponent with extensive training under [His/Her Guru]. [He/She] has performed extensively throughout India and abroad, garnering acclaim for [his/her] technical precision and expressive storytelling.</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p>As a dedicated teacher, [Teacher Name] emphasizes not only technical perfection but also the spiritual and cultural aspects of Bharatanatyam, ensuring that students develop a holistic understanding of this classical art form.</p>
+            </div>
+        </div>
+
+        <!-- Panel 5 (Middle panel of back side) -->
+        <div class="panel-2">
+            <h2>Dance Program</h2>
+
+            <div class="flex-container">
+                <div class="flex-left">
+                    <div class="dance-summary">
+                        <div>
+                            <div class="dance-title">1. Pushpanjali</div>
+                            <p>An invocatory piece offering flowers to deities, seeking blessings before the performance begins.</p>
+                        </div>
+
+                        <div>
+                            <div class="dance-title">2. Alaripu</div>
+                            <p style="word-spacing: normal; white-space: normal; letter-spacing: normal;">A warm-up piece introducing basic movements and awakening the dancer's body and spirit.</p>
+                        </div>
+
+                        <div>
+                            <div class="dance-title">3. Jatiswaram</div>
+                            <p>A rhythmic piece combining complex footwork with graceful movements and melodic harmony.</p>
+                        </div>
+
+                        <div>
+                            <div class="dance-title">4. Shabdam</div>
+                            <p>Expressive storytelling combining rhythmic footwork with interpretive elements conveying emotion.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-right">
+                    <div class="placeholder-img large-placeholder" style="background-image: url('/api/placeholder/400/320'); height: 300px;">
+                        <p>Dancer in Performance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel 6 (Right panel of back side) -->
+        <div class="panel-3">
+            <div class="flex-container">
+                <div class="flex-left">
+                    <div class="dance-summary">
+                        <div>
+                            <div class="dance-title">5. Varnam</div>
+                            <p>The main performance piece showcasing technical skills and expressive abilities in an elaborate blend of pure and expressive dance.</p>
+                        </div>
+
+                        <div>
+                            <div class="dance-title">6. Padam</div>
+                            <p>A lyrical composition focused on expressing deep emotions through subtle expressions and graceful movements.</p>
+                        </div>
+
+                        <div>
+                            <div class="dance-title">7. Tillana</div>
+                            <p>A fast-paced finale showcasing agility and energy with vibrant movements and intricate footwork.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-right">
+                    <div class="placeholder-img large-placeholder">
+                        <p>Dancer in Performance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MIDDLE PAGE WHEN FOLDED (third panel, when trifold is opened completely) -->
+    <div class="brochure page-break">
+        <!-- Panel 7 (Will be leftmost when trifold is completely opened) -->
+        <div class="panel-1">
+            <h2>About the Performance</h2>
+
+            <div class="bharatanatyam-border">
+                <p>This Bharatanatyam recital represents the culmination of years of dedicated training and spiritual growth. Each item in the program has been carefully selected to showcase the technical and expressive aspects of this ancient dance form.</p>
+            </div>
+
+            <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                <p>Performance Rehearsal</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>Music</h3>
+                <p><strong>Vocal:</strong> [Vocalist Name]</p>
+                <p><strong>Mridangam:</strong> [Mridangam Player]</p>
+                <p><strong>Violin:</strong> [Violinist]</p>
+                <p><strong>Flute:</strong> [Flutist]</p>
+                <p><strong>Nattuvangam:</strong> [Nattuvangam Artist]</p>
+            </div>
+        </div>
+
+        <!-- Panel 8 (middle when completely opened) -->
+        <div class="panel-2">
+            <h2>Credits</h2>
+
+            <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                <p>Group Photo</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>Special Thanks</h3>
+                <p><strong>Choreography:</strong> [Choreographer Name]</p>
+                <p><strong>Costume Design:</strong> [Designer Name]</p>
+                <p><strong>Makeup:</strong> [Makeup Artist]</p>
+                <p><strong>Stage Management:</strong> [Stage Manager]</p>
+                <p><strong>Lighting:</strong> [Lighting Designer]</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p>We express our heartfelt gratitude to all the parents, family members, and friends whose unwavering support has made this performance possible.</p>
+            </div>
+
+            <div class="credits">
+                <p>© [Year] [School Name]</p>
+                <p>[School Address] | [Phone] | [Email] | [Website]</p>
+            </div>
+        </div>
+
+        <!-- Panel 9 (rightmost when completely opened) -->
+        <div class="panel-3">
+            <h2>Our Philosophy</h2>
+
+            <div class="bharatanatyam-border">
+                <p>We believe that learning Bharatanatyam is not just about mastering dance techniques but also about connecting with our cultural roots, developing discipline, and finding joy in artistic expression.</p>
+            </div>
+
+            <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                <p>Classroom Teaching</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>Upcoming Events</h3>
+                <p><strong>Summer Workshop:</strong> [Date]</p>
+                <p><strong>Annual Day Performance:</strong> [Date]</p>
+                <p><strong>Master Class with Guest Artist:</strong> [Date]</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>Join Our Classes</h3>
+                <p>New batches starting [Date]. Limited seats available!</p>
+                <p>Contact us to schedule an orientation session.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

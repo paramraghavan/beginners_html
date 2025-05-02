@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharatanatyam Brochure</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .brochure {
+            width: 1056px; /* 11 inches at 96 dpi */
+            height: 1632px; /* 17 inches at 96 dpi */
+            background-color: #fff9f2;
+            display: grid;
+            grid-template-columns: 352px 352px 352px;
+            grid-template-rows: 1632px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Front panels */
+        .panel-1 {
+            padding: 20px;
+            border-right: 1px dashed #ccc;
+            background-color: #fff9f2;
+        }
+
+        .panel-2 {
+            padding: 20px;
+            border-right: 1px dashed #ccc;
+            background-color: #fff9f2;
+        }
+
+        .panel-3 {
+            padding: 20px;
+            background-color: #fff9f2;
+        }
+
+        h1, h2, h3 {
+            color: #9c2c2c;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo h1 {
+            font-size: 30px;
+            color: #9c2c2c;
+            margin: 0;
+        }
+
+        .placeholder-img {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            color: #777;
+            border: 1px solid #ddd;
+        }
+
+        .small-placeholder {
+            height: 150px;
+        }
+
+        .dance-item {
+            margin-bottom: 30px;
+        }
+
+        .contact {
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .bharatanatyam-border {
+            border: 2px solid #9c2c2c;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* Decorative elements */
+        .decorative-element {
+            text-align: center;
+            margin: 15px 0;
+            color: #9c2c2c;
+            font-size: 24px;
+        }
+
+        /* Optional: Add print-specific styles */
+        @media print {
+            .brochure {
+                width: 11in;
+                height: 17in;
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FRONT OF BROCHURE -->
+    <div class="brochure">
+        <!-- Panel 1 (Back of brochure when folded) -->
+        <div class="panel-1">
+            <div class="contact">
+                <h3>Contact Information</h3>
+                <p>School Name: [Your Dance School]</p>
+                <p>Phone: [Your Phone]</p>
+                <p>Email: [Your Email]</p>
+                <p>Website: [Your Website]</p>
+                <p>Address: [Your Address]</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>About Bharatanatyam</h3>
+                <p>Bharatanatyam is one of the oldest classical dance forms of India. Originating in Tamil Nadu, this divine art form denotes various emotions through facial expressions and hand gestures, bringing ancient stories to life.</p>
+            </div>
+
+            <div class="placeholder-img">
+                <p>Traditional Bharatanatyam Pose Image</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>Class Schedule</h3>
+                <p>Beginners: [Day & Time]</p>
+                <p>Intermediate: [Day & Time]</p>
+                <p>Advanced: [Day & Time]</p>
+            </div>
+        </div>
+
+        <!-- Panel 2 (Middle panel when folded) -->
+        <div class="panel-2">
+            <h2>Our Dance Songs</h2>
+
+            <div class="dance-item">
+                <h3>1. Pushpanjali</h3>
+                <div class="placeholder-img small-placeholder">
+                    <p>Pushpanjali Pose Image</p>
+                </div>
+                <p>The opening piece of a Bharatanatyam recital. This invocatory item involves offering flowers to the deity and seeking blessings before the main performance begins.</p>
+            </div>
+
+            <div class="dance-item">
+                <h3>2. Alaripu</h3>
+                <div class="placeholder-img small-placeholder">
+                    <p>Alaripu Pose Image</p>
+                </div>
+                <p>A pure dance piece that serves as a warm-up. It introduces basic dance movements and postures while awakening the dancer's body and spirit.</p>
+            </div>
+
+            <div class="dance-item">
+                <h3>3. Jatiswaram</h3>
+                <div class="placeholder-img small-placeholder">
+                    <p>Jatiswaram Pose Image</p>
+                </div>
+                <p>A rhythmic piece that combines complex footwork with graceful movements, emphasizing the harmony between dance and melody.</p>
+            </div>
+        </div>
+
+        <!-- Panel 3 (Front cover when folded) -->
+        <div class="panel-3">
+            <div class="logo">
+                <div class="decorative-element">॥ ॐ ॥</div>
+                <h1>BHARATANATYAM</h1>
+                <h2>Classical Dance of India</h2>
+            </div>
+
+            <div class="placeholder-img">
+                <p>Featured Dancer Image</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>About Our School</h3>
+                <p>At [Your School Name], we are dedicated to preserving and promoting the ancient art of Bharatanatyam. Our programs combine traditional techniques with contemporary teaching methods to create engaging learning experiences for students of all ages.</p>
+            </div>
+
+            <div class="placeholder-img">
+                <p>Teacher Image</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p>Join us in celebrating the rich cultural heritage of India through the divine art of Bharatanatyam.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK OF BROCHURE (second page) -->
+    <div class="brochure page-break">
+        <!-- Panel 4 -->
+        <div class="panel-1">
+            <h2>More Dance Songs</h2>
+
+            <div class="dance-item">
+                <h3>4. Shabdam</h3>
+                <div class="placeholder-img small-placeholder">
+                    <p>Shabdam Pose Image</p>
+                </div>
+                <p>A piece that introduces abhinaya (expressive storytelling), combining rhythmic footwork with interpretive elements that convey emotion and narrative.</p>
+            </div>
+
+            <div class="dance-item">
+                <h3>5. Varnam</h3>
+                <div class="placeholder-img small-placeholder">
+                    <p>Varnam Pose Image</p>
+                </div>
+                <p>The main item of a Bharatanatyam recital. This complex piece showcases the dancer's technical and expressive abilities through an elaborate blend of nritta (pure dance) and nritya (expressive dance).</p>
+            </div>
+        </div>
+
+        <!-- Panel 5 -->
+        <div class="panel-2">
+            <div class="dance-item">
+                <h3>6. Padam</h3>
+                <div class="placeholder-img small-placeholder">
+                    <p>Padam Pose Image</p>
+                </div>
+                <p>A lyrical composition focused on abhinaya, allowing the dancer to express deep emotions and tell stories through subtle expressions and graceful movements.</p>
+            </div>
+
+            <div class="dance-item">
+                <h3>7. Tillana</h3>
+                <div class="placeholder-img small-placeholder">
+                    <p>Tillana Pose Image</p>
+                </div>
+                <p>A fast-paced, rhythmic finale that showcases the dancer's agility and energy, concluding the performance with vibrant movements and intricate footwork.</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <h3>Upcoming Events</h3>
+                <p>Annual Recital: [Date]</p>
+                <p>Workshop with Guest Artist: [Date]</p>
+                <p>Community Performance: [Date]</p>
+            </div>
+        </div>
+
+        <!-- Panel 6 -->
+        <div class="panel-3">
+            <h2>Our Philosophy</h2>
+
+            <div class="bharatanatyam-border">
+                <p>We believe that learning Bharatanatyam is not just about mastering dance techniques but also about connecting with our cultural roots, developing discipline, and finding joy in artistic expression.</p>
+            </div>
+
+            <div class="placeholder-img">
+                <p>Group Performance Image</p>
+            </div>
+
+            <h3>Programs We Offer</h3>
+
+            <div class="bharatanatyam-border">
+                <p><strong>Beginner Classes:</strong> Introduction to basic postures, hand gestures, and footwork for children and adults.</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p><strong>Intermediate & Advanced Training:</strong> Comprehensive training for dedicated students pursuing excellence in Bharatanatyam.</p>
+            </div>
+
+            <div class="bharatanatyam-border">
+                <p><strong>Arangetram Preparation:</strong> Specialized coaching for students preparing for their debut solo performance.</p>
+            </div>
+
+            <div class="decorative-element">✦ ✦ ✦</div>
+
+            <div class="contact">
+                <p>Follow us on social media:</p>
+                <p>[Social Media Handles]</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
