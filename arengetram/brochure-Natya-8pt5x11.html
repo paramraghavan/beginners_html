@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharatanatyam Arangetram Brochure (8.5×11 inch)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            color: #e6c87e;
+            background-color: #1a1a1a;
+        }
+
+        .brochure {
+            width: 816px; /* 8.5 inches at 96 dpi */
+            height: 1056px; /* 11 inches at 96 dpi */
+            background-color: #000000;
+            display: grid;
+            grid-template-columns: 272px 272px 272px; /* Divide width by 3 */
+            grid-template-rows: 1056px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Panels */
+        .panel {
+            padding: 15px;
+            background-color: #000000;
+            outline: 2px solid #e6c87e;
+            margin: 4px;
+            box-sizing: border-box;
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            color: #e6c87e;
+            text-align: center;
+            font-family: 'Georgia', serif;
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 28px; /* Scaled down from 36px */
+            margin-bottom: 8px;
+            text-shadow: 0 0 5px rgba(241, 213, 146, 0.3);
+        }
+
+        h2 {
+            font-size: 22px; /* Scaled down from 28px */
+            margin-bottom: 12px;
+            color: #f1d592;
+        }
+
+        h3 {
+            font-size: 18px; /* Scaled down from 22px */
+            margin-bottom: 8px;
+            color: #f1d592;
+        }
+
+        h4 {
+            font-size: 16px; /* Scaled down from 18px */
+            margin-bottom: 6px;
+            color: #f1d592;
+        }
+
+        p {
+            font-size: 12px; /* Scaled down from 14px */
+            line-height: 1.4;
+            text-align: justify;
+            margin-bottom: 8px;
+            font-family: 'Georgia', serif;
+        }
+
+        .dance-item {
+            margin-bottom: 15px; /* Scaled down from 20px */
+        }
+
+        .dance-item h4 {
+            text-align: left;
+            margin-bottom: 4px;
+        }
+
+        .dance-item p {
+            margin-top: 0;
+        }
+
+        .placeholder-img {
+            width: 100%;
+            height: 180px; /* Scaled down from 250px */
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 12px 0;
+            color: #e6c87e;
+            border: 2px solid #e6c87e;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .large-img {
+            height: 250px; /* Scaled down from 350px */
+        }
+
+        .small-img {
+            height: 130px; /* Scaled down from 180px */
+        }
+
+        .floating-deity {
+            position: absolute;
+            width: 40px; /* Scaled down from 50px */
+            height: 60px; /* Scaled down from 80px */
+            top: 15px;
+        }
+
+        .deity-left {
+            left: 15px;
+        }
+
+        .deity-right {
+            right: 15px;
+        }
+
+        .credit-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px; /* Scaled down from 8px */
+        }
+
+        .credit-title {
+            color: #e6c87e;
+            font-weight: bold;
+        }
+
+        .credit-name {
+            text-align: right;
+        }
+
+        .event-date {
+            text-align: center;
+            font-size: 16px; /* Scaled down from 18px */
+            color: #f1d592;
+            margin-top: 15px;
+        }
+
+        .golden-border {
+            border: 2px solid #e6c87e;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .bio-section {
+            margin-bottom: 15px; /* Scaled down from 20px */
+        }
+
+        .ragas {
+            font-style: italic;
+            color: #c9ae67;
+            font-size: 10px; /* Scaled down from 12px */
+        }
+
+        /* Layout for right-aligned images to maximize space */
+        .content-with-image {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .content-text {
+            flex: 3;
+        }
+
+        .content-image {
+            flex: 2;
+        }
+
+        .content-image .placeholder-img {
+            height: 100%;
+            margin: 0;
+        }
+
+        @media print {
+            .brochure {
+                width: 8.5in;
+                height: 11in;
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- OUTSIDE PANELS (Front, back, and spine) -->
+    <div class="brochure">
+        <!-- Front Cover (Panel 3) -->
+        <div class="panel">
+            <div class="floating-deity deity-left">✦</div>
+            <div class="floating-deity deity-right">✦</div>
+
+            <div style="text-align: center; margin: 15px 0 30px 0;">
+                <h3>NATYARCHITA</h3>
+                <h4>Presents</h4>
+                <h1>Arangetram</h1>
+                <h2>[DANCER NAME]</h2>
+            </div>
+
+            <div class="placeholder-img large-img" style="background-image: url('/api/placeholder/400/320');">
+                <!-- Main dancer image -->

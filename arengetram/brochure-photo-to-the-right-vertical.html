@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharatanatyam Arangetram Brochure</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            color: #e6c87e;
+            background-color: #1a1a1a;
+        }
+
+        .brochure {
+            width: 1056px; /* 11 inches at 96 dpi */
+            height: 1632px; /* 17 inches at 96 dpi */
+            background-color: #000000;
+            display: grid;
+            grid-template-columns: 352px 352px 352px;
+            grid-template-rows: 1632px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Panels */
+        .panel {
+            padding: 20px;
+            background-color: #000000;
+            outline: 2px solid #e6c87e;
+            margin: 5px;
+            box-sizing: border-box;
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            color: #e6c87e;
+            text-align: center;
+            font-family: 'Georgia', serif;
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 42px; /* Increased from 36px */
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(241, 213, 146, 0.3);
+        }
+
+        h2 {
+            font-size: 32px; /* Increased from 28px */
+            margin-bottom: 20px;
+            color: #f1d592;
+        }
+
+        h3 {
+            font-size: 26px; /* Increased from 22px */
+            margin-bottom: 15px;
+            color: #f1d592;
+        }
+
+        h4 {
+            font-size: 22px; /* Increased from 18px */
+            margin-bottom: 12px;
+            color: #f1d592;
+        }
+
+        p {
+            font-size: 16px; /* Increased from 14px */
+            line-height: 1.6; /* Increased from 1.5 */
+            text-align: justify;
+            margin-bottom: 15px; /* Increased from 10px */
+            font-family: 'Georgia', serif;
+        }
+
+        .dance-item {
+            margin-bottom: 25px; /* Increased from 20px */
+        }
+
+        .dance-item h4 {
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        .dance-item p {
+            margin-top: 0;
+        }
+
+        .placeholder-img {
+            width: 100%;
+            height: 250px;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            color: #e6c87e;
+            border: 2px solid #e6c87e;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .large-img {
+            height: 350px;
+        }
+
+        .small-img {
+            height: 180px;
+        }
+
+        /* New classes for right-aligned images */
+        .right-aligned-content {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .content-text {
+            flex: 3;
+        }
+
+        .content-image {
+            flex: 2;
+        }
+
+        .content-image .placeholder-img {
+            height: 100%;
+            margin: 0;
+            width: 100%;
+        }
+
+        .floating-deity {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            top: 20px;
+        }
+
+        .deity-left {
+            left: 20px;
+        }
+
+        .deity-right {
+            right: 20px;
+        }
+
+        .credit-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px; /* Increased from 8px */
+        }
+
+        .credit-title {
+            color: #e6c87e;
+            font-weight: bold;
+            font-size: 16px; /* Increased from default */
+        }
+
+        .credit-name {
+            text-align: right;
+            font-size: 16px; /* Increased from default */
+        }
+
+        .event-date {
+            text-align: center;
+            font-size: 22px; /* Increased from 18px */
+            color: #f1d592;
+            margin-top: 20px;
+        }
+
+        .golden-border {
+            border: 2px solid #e6c87e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .bio-section {
+            margin-bottom: 20px;
+        }
+
+        .ragas {
+            font-style: italic;
+            color: #c9ae67;
+            font-size: 14px; /* Increased from 12px */
+        }
+
+        /* Bottom-aligned image container */
+        .bottom-image-container {
+            position: absolute;
+            bottom: 25px;
+            left: 20px;
+            right: 20px;
+            height: auto;
+        }
+
+        @media print {
+            .brochure {
+                width: 11in;
+                height: 17in;
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- OUTSIDE PANELS (Front, back, and spine) -->
+    <div class="brochure">
+        <!-- Front Cover (Panel 3) -->
+        <div class="panel">
+            <div class="floating-deity deity-left">✦</div>
+            <div class="floating-deity deity-right">✦</div>
+
+            <div style="text-align: center; margin: 20px 0 40px 0;">
+                <h3>NATYARCHITA</h3>
+                <h4>Presents</h4>
+                <h1>Arangetram</h1>
+                <h2>[DANCER NAME]</h2>
+            </div>
+
+            <div class="placeholder-img large-img" style="background-image: url('/api/placeholder/400/320');">
+                <!-- Main dancer image -->
+            </div>
+
+            <div class="event-date">
+                <h3>Friday, July 12, 2024</h3>
+                <p>[Venue Name]</p>
+                <p>[Time]</p>
+            </div>
+        </div>
+
+        <!-- Dance Details Panel (Panel 1) -->
+        <div class="panel">
+            <h3>Dance Program</h3>
+
+            <!-- Content with right-aligned image -->
+            <div class="right-aligned-content">
+                <div class="content-text">
+                    <div class="dance-item">
+                        <h4>Pushpanjali</h4>
+                        <p class="ragas">Nattai / Adi / Traditional</p>
+                        <p>An invocatory piece offering flowers to the deity, seeking blessings before the commencement of the performance. The dancer pays obeisance to the stage, the audience, and the musicians.</p>
+                    </div>
+
+                    <div class="dance-item">
+                        <h4>Alarippu</h4>
+                        <p class="ragas">Misra Chapu / Traditional</p>
+                        <p>A dance sequence showcasing the gradual awakening of the dancer's body. Beginning with the eyes, then neck, shoulders, and finally ending with intricate rhythmic footwork.</p>
+                    </div>
+                </div>
+                <div class="content-image">
+                    <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                        <!-- Dance pose image -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="dance-item">
+                <h4>Jathiswaram</h4>
+                <p class="ragas">Arabhi / Adi / Mysore Vasudevacharya</p>
+                <p>A pure rhythmic dance consisting of a harmonious blend of jathis (rhythmic patterns) and swaras (musical notes).</p>
+            </div>
+
+            <div class="dance-item">
+                <h4>Shabdam</h4>
+                <p class="ragas">Khamboji / Misra Chapu / Traditional</p>
+                <p>A piece that combines abhinaya (expressive elements) with nritta (pure dance), introducing the storytelling aspect of Bharatanatyam.</p>
+            </div>
+        </div>
+
+        <!-- Credits Panel (Panel 2) -->
+        <div class="panel">
+            <h2>CREDITS</h2>
+            <h3>Recorded Music Ensemble</h3>
+
+            <div class="golden-border">
+                <div class="credit-item">
+                    <span class="credit-title">Nattuvangam</span>
+                    <span class="credit-name">: Sri. [Name]</span>
+                </div>
+                <div class="credit-item">
+                    <span class="credit-title">Vocal</span>
+                    <span class="credit-name">: Sri. [Name]</span>
+                </div>
+                <div class="credit-item">
+                    <span class="credit-title">Mridangam</span>
+                    <span class="credit-name">: Sri. [Name]</span>
+                </div>
+                <div class="credit-item">
+                    <span class="credit-title">Violin</span>
+                    <span class="credit-name">: Sri. [Name]</span>
+                </div>
+                <div class="credit-item">
+                    <span class="credit-title">Flute</span>
+                    <span class="credit-name">: Sri. [Name]</span>
+                </div>
+            </div>
+
+            <!-- Content with right-aligned image -->
+            <div class="right-aligned-content">
+                <div class="content-text">
+                    <div class="golden-border">
+                        <div class="credit-item">
+                            <span class="credit-title">Master of Ceremony</span>
+                            <span class="credit-name">: [Name]</span>
+                        </div>
+                        <div class="credit-item">
+                            <span class="credit-title">Photography/Videography</span>
+                            <span class="credit-name">: [Name]</span>
+                        </div>
+                        <div class="credit-item">
+                            <span class="credit-title">Makeup and Hair</span>
+                            <span class="credit-name">: [Name]</span>
+                        </div>
+                        <div class="credit-item">
+                            <span class="credit-title">Decorations</span>
+                            <span class="credit-name">: [Name]</span>
+                        </div>
+                        <div class="credit-item">
+                            <span class="credit-title">Yoga</span>
+                            <span class="credit-name">: [Name]</span>
+                        </div>
+                        <div class="credit-item">
+                            <span class="credit-title">Photo Album/Banner</span>
+                            <span class="credit-name">: [Name]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-image">
+                    <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                        <!-- Additional pose image -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="golden-border">
+                <div class="credit-item">
+                    <span class="credit-title">Sound/Lighting</span>
+                    <span class="credit-name">: [Name]</span>
+                </div>
+                <div class="credit-item">
+                    <span class="credit-title">Theater Manager</span>
+                    <span class="credit-name">: [Name]</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INSIDE PANELS -->
+    <div class="brochure page-break">
+        <!-- Dancer Bio (Panel 4) -->
+        <div class="panel">
+            <h2>[Dancer Name]</h2>
+
+            <!-- Right-aligned image with content -->
+            <div class="right-aligned-content">
+                <div class="content-text">
+                    <div class="bio-section">
+                        <p>[Dancer Name] started Bharatanatyam learning at Natyarchita at the age of four, and her interest in dance has grown immensely ever since. In 2015, she started her training under Guru [Teacher Name], who has helped her sharpen her technique and gain a greater understanding of the intricacies of the dance form.</p>
+                    </div>
+
+                    <div class="bio-section">
+                        <p>Her guru has played a crucial role in bringing [Dancer Name] into the world of Bharatanatyam and shaping her into the dancer she is today. [Dancer Name] expresses heartfelt gratitude to her guru, whose guidance and support have been key to her dance journey.</p>
+                    </div>
+                </div>
+                <div class="content-image">
+                    <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                        <!-- Dancer portrait image -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="bio-section">
+                <p>At Natyarchita, [Dancer Name] has had the opportunity to showcase her talent at various cultural events in the area. She has performed at several local temple festivals and community events. She aspires to further explore this art form and continue performing in the future.</p>
+            </div>
+
+            <div class="bio-section">
+                <p>[Dancer Name]'s preparation for this Arangetram has taught her the importance of patience, dedication, and perseverance. The art has pushed her to reach new heights, challenge herself, and deepen her knowledge of dance.</p>
+            </div>
+        </div>
+
+        <!-- Guru Bio (Panel 5) -->
+        <div class="panel">
+            <h2>Guru - [Teacher Name]</h2>
+
+            <!-- Right-aligned image with content -->
+            <div class="right-aligned-content">
+                <div class="content-text">
+                    <div class="bio-section">
+                        <p>[Teacher Name] is a renowned Bharatanatyam dancer, choreographer and teacher. She is the artistic director of the dance school, Natyarchita.</p>
+                    </div>
+
+                    <div class="bio-section">
+                        <p>[Teacher Name] started her Bharatanatyam training under her Guru [Guru's Name]. She is an alumnus of a world-renowned dance institute in Chennai, India. She continued her pursuit of dance, learning bhavam (expressions) extensively from accomplished masters.</p>
+                    </div>
+                </div>
+                <div class="content-image">
+                    <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                        <!-- Teacher image -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="bio-section">
+                <p>In the US, she has worked for several dance schools and companies. As a principal dancer in signature productions, she has performed featured roles at many eminent venues, including performing arts centers, theaters, and cultural festivals. Her performances have received individual recognition and accolades from press and critics.</p>
+            </div>
+
+            <div class="bio-section">
+                <p>[Teacher Name] is passionate about both teaching and performing. She has been teaching in the area for over 15 years. She is deeply dedicated and gives everything she has to mentor her students, always encouraging them to do their very best.</p>
+            </div>
+        </div>
+
+        <!-- More Dance Items (Panel 6) -->
+        <div class="panel">
+            <h3>Dance Program (continued)</h3>
+
+            <!-- Right-aligned image with content -->
+            <div class="right-aligned-content">
+                <div class="content-text">
+                    <div class="dance-item">
+                        <h4>Varnam</h4>
+                        <p class="ragas">Shanmukhapriya / Adi / Papanasam Sivan</p>
+                        <p>Varnam (color), as the name suggests, is the centerpiece of a Bharatanatyam repertoire. It consists of challenging choreography, requiring intricate rhythmic footwork and refined abhinaya (expressive elements), allowing the dancer to showcase technical and artistic refinements.</p>
+                    </div>
+
+                    <div class="dance-item">
+                        <h4>Keerthanam</h4>
+                        <p class="ragas">Chakravakam / Kanda Ekam / Gopalakrishna Bharathi</p>
+                        <p>A nritya (expressive) piece that is descriptive in nature, where the dancer weaves a story with her gestures and facial expressions. This Keerthanam is in praise of Lord Nataraja of Chidambaram.</p>
+                    </div>
+                </div>
+                <div class="content-image">
+                    <div class="placeholder-img" style="background-image: url('/api/placeholder/400/320');">
+                        <!-- Final pose image -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="dance-item">
+                <h4>Padam</h4>
+                <p class="ragas">Suruti / Roopakam / Marimutha Pillai</p>
+                <p>A pure nritya piece tests the dancer's ability to emote as another character. "Why are you so angry with me?" asks the sarcastic heroine in this padham.</p>
+            </div>
+
+            <div class="dance-item">
+                <h4>Tillana</h4>
+                <p class="ragas">Sindalam / Kanda Ekam / Veenai Krishnamachariar</p>
+                <p>Performed towards the finale, Tillana is the epitome of pure rhythmic artistry. The choreography demands perfect execution of footwork and body movements.</p>
+            </div>
+
+            <div class="dance-item">
+                <h4>Mangalam</h4>
+                <p>A thankful prayer and conclusion to the recital.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
